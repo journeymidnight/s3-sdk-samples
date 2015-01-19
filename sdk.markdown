@@ -162,7 +162,7 @@ SDK目前只支持从lecloud上传下载文件,不支持从cdn下载
 
     sS3Client.createBucket(new CreateBucketRequest(BUCKET_NAME).withCannedAcl(CannedAccessControlList.LogDeliveryWrite));
     //文件上传
-    //sS3Client.putObject(BUCKET_NAME,“filename”, new File(“/sdcard/filename”));
+    sS3Client.putObject(BUCKET_NAME,“filename”, new File(“/sdcard/filename”));
 
 ##Download文件
 
