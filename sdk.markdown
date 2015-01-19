@@ -122,6 +122,12 @@ SDK目前只支持从lecloud上传下载文件,不支持从cdn下载
 
 	[s3TM downloadFile:saveFileName bucket: BucketName key: @”myfile1_tag”];
 
+## cdn 下载
+
+任何http client都可以下载, 只要ACL配置为Public
+
+	wget http://s3-cdn.lecloud.com/{bucketname}/{objectname}
+
 ##sample文件
 
 	见样例文件S3_S3TransferManager.zip
@@ -172,11 +178,57 @@ SDK目前只支持从lecloud上传下载文件,不支持从cdn下载
 
     File dnFile=new File(downloadPath + "/imagefile.img");
     sS3Client.getObject(request,dnFile);
+
+## cdn 下载
+
+任何http client都可以下载, 只要ACL配置为Public
+
+	wget http://s3-cdn.lecloud.com/{bucketname}/{objectname}
  
 ##sample文件
 
 	见样例文件s3-test.zip
-  
+
+
+# PHP
+
+##SDK安装
+
+参考http://docs.aws.amazon.com/AWSSDKforPHP/, 可以通过github clone, PEAR, Composer多种方式安装
+
+##初始化参数
+
+	$client = new AmazonS3(array(
+	        'key' => '9EEIWGS705M4ZJ3N7FEM',
+	        'secret' => '8humW3nOraybmbIjY6s15IVned87gz/nUrgxYlEX',
+	));
+
+	$client->set_hostname('s3.lecloud.com');
+	$client->allow_hostname_override(false);
+	$client->enable_path_style();
+	/* use http protocol */
+	$client->disable_ssl();
+
+##上传object
+
+	$result = $client->create_object($bucket, $key, array(
+	'body'   => "Hello World!"
+	));
+	/* set to public ,let letv CDN to access the object */
+	$client->set_object_acl($bucket, $key, AmazonS3::ACL_PUBLIC);
+
+
+## cdn 下载
+
+任何http client都可以下载, 只要ACL配置为Public
+
+	wget http://s3-cdn.lecloud.com/{bucketname}/{objectname}
+
+##sample文件
+
+	sample.php
+
+
 # 命令行工具
 
 下载最新s3cmd工具 http://s3tools.org/s3cmd

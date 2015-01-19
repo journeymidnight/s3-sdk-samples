@@ -1,0 +1,5 @@
+{
+	    "require": {
+		            "amazonwebservices/aws-sdk-for-php": "*"
+				        }
+}
