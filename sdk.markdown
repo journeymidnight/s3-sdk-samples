@@ -130,22 +130,26 @@ SDK目前只支持从lecloud上传下载文件,不支持从cdn下载
 # Android
 
 ##必须的sdk jar文件
+
    aws-android-sdk-x.x.x-core.jar
    aws-android-sdk-x.x.x-s3.jar
    
 ##参数配置
+
   public static final String ACCESS_KEY_ID = "9EEIWGS705M4ZJ3N7FEM";
   public static final String SECRET_KEY = "8humW3nOraybmbIjY6s15IVned87gz/nUrgxYlEX";
   public static final String BUCKET_NAME = "my-first-s3-bucket";
   public static final String S3_ENDPOINT ="http://s3.lecloud.com";
 
 ##初始化AmazonS3Client
+
   sS3Client = new AmazonS3Client(
         new BasicAWSCredentials(ACCESS_KEY_ID,SECRET_KEY));
   sS3Client.setEndpoint(S3_ENDPOINT);
 
 ##Upload 文件
-  创建 bucket，并指定acl
+
+  //创建 bucket，并指定acl
   // acl参数列表
     Private("private"),
     PublicRead("public-read"),
@@ -160,6 +164,7 @@ SDK目前只支持从lecloud上传下载文件,不支持从cdn下载
   sS3Client.putObject(BUCKET_NAME,“filename”, new File(“/sdcard/filename”));
 
 ##Download文件
+
   String downloadPath = Environment.getExternalStorageDirectory().getPath() + "/download_cache";
   GetObjectRequest request = new GetObjectRequest(
         Constants.BUCKET_NAME, "imageFilename");
