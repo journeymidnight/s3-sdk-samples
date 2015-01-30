@@ -1,6 +1,7 @@
 
-SDK目前只支持从lecloud上传下载文件,不支持从cdn下载
-从cdn下载可以自行拼出URL,从CDN下载
+SDK目前只支持从lecloud上传下载文件
+
+从CDN下载可以自行拼出URL,用wget,浏览器等从CDN下载
 
 # Python
 
@@ -8,7 +9,7 @@ SDK目前只支持从lecloud上传下载文件,不支持从cdn下载
 
 安装python-boto库文件
 
-    tar zxvf python-s3-sdk-sample.tar.gz
+	tar zxvf python-s3-sdk-sample.tar.gz
 	cd python-s3-sdk-sample	
 
 修改S3Sample.py中的accesskey和secretkey
@@ -142,8 +143,8 @@ SDK目前只支持从lecloud上传下载文件,不支持从cdn下载
    
 ##参数配置
     
-	public static final String ACCESS_KEY_ID = "9EEIWGS705M4ZJ3N7FEM";
-    public static final String SECRET_KEY = "8humW3nOraybmbIjY6s15IVned87gz/nUrgxYlEX";
+	public static final String ACCESS_KEY_ID = "ACCESSKEY";
+    public static final String SECRET_KEY = "SECRETKEY";
     public static final String BUCKET_NAME = "my-first-s3-bucket";
     public static final String S3_ENDPOINT ="http://s3.lecloud.com";
 
@@ -199,8 +200,8 @@ SDK目前只支持从lecloud上传下载文件,不支持从cdn下载
 ##初始化参数
 
 	$client = new AmazonS3(array(
-	        'key' => '9EEIWGS705M4ZJ3N7FEM',
-	        'secret' => '8humW3nOraybmbIjY6s15IVned87gz/nUrgxYlEX',
+	        'key' => 'ACCESSKEY',
+	        'secret' => 'SECRETKEY',
 	));
 
 	$client->set_hostname('s3.lecloud.com');
@@ -264,5 +265,40 @@ SDK目前只支持从lecloud上传下载文件,不支持从cdn下载
 
 	wget http://s3-cdn.lecloud.com/{bucketname}/{objectname}
 	
-	
+
+
+# Windows S3 工具
+
+CloudBerry S3 Explorer PRO，该工具支持多线程上传，缺点是需要付费，价格为39.99$，提供15天的免费试用，可以先感受一下，目前来看此工具用户界面最为友好，功能最为齐全。另外CloudBerry还提供一个免费版，但是它不支持5GB以上的大文件。另外有一个叫cyberduck的工具，免费且支持大文件，但用户界面不太友好，另外对文件夹上传支持非常有限，需要您自己先创建好文件夹，再进行文件的上传，不过稍感欣慰的是它能够支持一次上传多个文件。另外需要注意的一点时，由于CloudBerry S3 Explorer PRO对上传文件切成小块上传，当下载时它会自己进行拼接，因而使用CloudBerry S3 Explorer PRO上传的文件只能通过CloudBerry S3 Explorer PRO下载，其他客户端会出现很多5MB的chunk文件，并且其他客户端不具备拼接的能力.
+
+
+## CloudBerry使用方法:
+
+0. [cloudBerry下载地址](http://www.cloudberrylab.com)
+
+1. 进入Tools->Options,选择S3 Multipart Upload,把三个勾都打上
+   
+![](sdk-img/1.jpg)
+
+2. 进入File->S3 Compatible-> S3 Compatible
+
+![](sdk-img/2.jpg)
+
+3. 通过点击New Account创建账户：
+
+![](sdk-img/3.jpg)
+
+
+4. 之后是填写账户信息：
+
+	Service point为服务器IP地址，提供的服务器IP为：s3.lecloud.com
+	Access key和Secret key类似于用户名和密码.
+	Use SSL 不用勾选
+
+![](sdk-img/4.jpg)
+
+
+## cyberduck配置方法：
+
+[cyberduck下载地址](http://cyberduck.io/)
 
