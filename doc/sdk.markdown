@@ -247,7 +247,7 @@ SDK目前只支持从lecloud上传下载文件
 	host_bucket = %(bucket)s.s3.lecloud.com
 	use_https = False
 	put_continue = True
-	multipart_chunk_size_mb = 8
+	multipart_chunk_size_mb = 15
 
 替换其中accesskey和secretkey
 
