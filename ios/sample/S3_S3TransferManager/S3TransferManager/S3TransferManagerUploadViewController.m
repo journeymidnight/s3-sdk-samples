@@ -41,7 +41,7 @@
             
             // Create the bucket
             S3CreateBucketRequest *createBucketRequest = [[S3CreateBucketRequest alloc] initWithName:[Constants transferManagerBucket] andRegion: [S3Region USWest2]];
-                createBucketRequest.cannedACL=kS3CannedAclPublicRead;
+    
             @try {
                 S3CreateBucketResponse *createBucketResponse = [s3Client createBucket:createBucketRequest];
                 if(createBucketResponse.error != nil)
@@ -74,12 +74,16 @@
     
     if(self.uploadSmallFileOperation == nil || (self.uploadSmallFileOperation.isFinished && !self.uploadSmallFileOperation.isPaused)){
         self.uploadSmallFileOperation = [s3TM uploadFile:self.pathForSmallFile bucket: [Constants transferManagerBucket] key: kKeyForSmallFile];
+        //设置acl
+        self.uploadSmallFileOperation.putRequest.cannedACL = [[S3CannedACL alloc] initWithStringValue:kS3CannedAclPublicRead];
     }
 }
 
 - (IBAction)uploadBigFile:(id)sender {
     if(self.uploadBigFileOperation == nil || (self.uploadBigFileOperation.isFinished && !self.uploadBigFileOperation.isPaused)){
         self.uploadBigFileOperation = [s3TM uploadFile:self.pathForBigFile bucket: [Constants transferManagerBucket] key: kKeyForBigFile];
+        //设置acl
+        self.uploadBigFileOperation.putRequest.cannedACL = [[S3CannedACL alloc] initWithStringValue:kS3CannedAclPublicRead];
     }
 }
 
