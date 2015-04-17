@@ -96,14 +96,7 @@ SDK目前只支持从lecloud上传下载文件
 	S3CreateBucketRequest *createBucketRequest = 
 	        [[S3CreateBucketRequest alloc] 
 	          initWithName: BucketName;
-	//指定ACL
-	#define kS3CannedAclPrivate             @"private"
-	#define kS3CannedAclPublicRead         @"public-read"
-	#define kS3CannedAclPublicReadWrite   @"public-read-write"
-	#define kS3CannedAclAuthRead           @"authenticated-read"
-	#define kS3CannedAclBucketOwnerRead   @"bucket-owner-read"
-	#define kS3CannedAclBucketOwnerFullControl  @"bucket-owner-full-control"
-	  createBucketRequest.cannedACL=kS3CannedAclPublicRead;
+
 	  
 	 @try {
 	       S3CreateBucketResponse *createBucketResponse = [s3Client createBucket:createBucketRequest];
@@ -117,8 +110,16 @@ SDK目前只支持从lecloud上传下载文件
 	                }
 	            }
 	//文件上传
-	[s3TM uploadFile:filename bucket: BucketName key:@”myfile1_tag”];
-
+    self.uploadFileOperation=[s3TM uploadFile:filename bucket: BucketName key:@”myfile1_tag”];
+    //指定ACL
+    #define kS3CannedAclPrivate             @"private"
+    #define kS3CannedAclPublicRead         @"public-read"
+    #define kS3CannedAclPublicReadWrite   @"public-read-write"
+    #define kS3CannedAclAuthRead           @"authenticated-read"
+    #define kS3CannedAclBucketOwnerRead   @"bucket-owner-read"
+    #define kS3CannedAclBucketOwnerFullControl  @"bucket-owner-full-control"
+    self.uploadSmallFileOperation.putRequest.cannedACL = [[S3CannedACL alloc] initWithStringValue:kS3CannedAclPublicRead];
+     
 ##Download文件
 
 	[s3TM downloadFile:saveFileName bucket: BucketName key: @”myfile1_tag”];
