@@ -168,7 +168,7 @@ SDK目前只支持从lecloud上传下载文件
     //BucketOwnerRead("bucket-owner-read"),
     //BucketOwnerFullControl("bucket-owner-full-control");
 
-    sS3Client.createBucket(new CreateBucketRequest(BUCKET_NAME).withCannedAcl(CannedAccessControlList.LogDeliveryWrite));
+    sS3Client.createBucket(new CreateBucketRequest(BUCKET_NAME).withCannedAcl(CannedAccessControlList.PublicRead));
     //文件上传
     sS3Client.putObject(BUCKET_NAME,“filename”, new File(“/sdcard/filename”));
 
