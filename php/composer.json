@@ -1,5 +1,6 @@
 {
-	    "require": {
-		            "amazonwebservices/aws-sdk-for-php": "*"
-				        }
+    "require": {
+       "monolog/monolog": "1.0.*",
+        "aws/aws-sdk-php": "^2.8" 
+    }
 }

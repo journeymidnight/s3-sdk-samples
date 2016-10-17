@@ -1,4 +1,6 @@
 <?php
+namespace Aws\S3;
+use Aws\S3\S3Client;
 /*
  * Copyright 2013. Amazon Web Services, Inc. All Rights Reserved.
  *
@@ -18,57 +20,67 @@
 // Include the SDK using the Composer autoloader
 require 'vendor/autoload.php';
 
-
-/*
- If you instantiate a new client for Amazon Simple Storage Service (S3) with
- no parameters or configuration, the AWS SDK for PHP will look for access keys
- in the AWS_ACCESS_KEY_ID and AWS_SECRET_KEY environment variables.
-
- For more information about this interface to Amazon S3, see:
- http://docs.aws.amazon.com/aws-sdk-php-2/guide/latest/service-s3.html#creating-a-client
-*/
-$client = new AmazonS3(array(
-        'key' => '9EEIWGS705M4ZJ3N7FEM',
-        'secret' => '8humW3nOraybmbIjY6s15IVned87gz/nUrgxYlEX',
-));
-
-$client->set_hostname('s3.lecloud.com');
-$client->allow_hostname_override(false);
-$client->enable_path_style();
-/* use http protocol */
-$client->disable_ssl();
-
-/* use https protocol
- * curl will check if CA is verified.
-$client->disable_ssl_verification();
- */
-
+$client = S3Client::factory([
+	'key' => 'V7IPYXNZNMP8FGFG647G', 
+	'secret' => 'Fd4TUtoR4pmWojmrY7TZwLZiN5qWZxraZbo6FTFn',
+	'region' => 'us-west-2',
+	'endpoint' => 'http://los-cn-north-1.lecloudapis.com'
+]);
 
 $bucket = uniqid("php-sdk-sample-", true);
+$name = $bucket;
+
 echo "Creating bucket named {$bucket}\n";
-$result = $client->createBucket($bucket, AmazonS3::REGION_US_W1);
+$result = $client->createBucket(array('ACL' => 'public-read','Bucket' => $bucket));
 
+echo "Putting object into bucket named {$bucket}\n";
+$key = 'MyObjectKey';
+$result = $client->putObject(array('Bucket' => $bucket, 'Key' => $key, 'Body' => 'Hello World!'));
 
-$key = 'hello_world.txt';
-echo "Creating a new object with key {$key}\n";
-$result = $client->create_object($bucket, $key, array(
-    'body'   => "Hello World!"
-));
+// Access parts of the result object
+echo $result['Expiration'] . "\n";
+echo $result['ServerSideEncryption'] . "\n";
+echo $result['ETag'] . "\n";
+echo $result['VersionId'] . "\n";
+echo $result['RequestId'] . "\n";
 
-$client->set_object_acl($bucket, $key, AmazonS3::ACL_PUBLIC);
+echo "\n-------------------------------------\n";
+echo "List bucket and object\n";
+echo "-------------------------------------\n";
+$result = $client->listBuckets();
+foreach ($result['Buckets'] as $bucket) {
+    // Each Bucket value will contain a Name and CreationDate
+    echo "{$bucket['Name']} - {$bucket['CreationDate']}\n";
+    $iterator = $client->getIterator('ListObjects', array(
+        'Bucket' => $bucket['Name']));
 
+    foreach ($iterator as $object) {
+        echo $object['Key'] . "\n";
+    }
+}
 
-
-echo "Downloading that same object:\n";
-$result = $client->get_object($bucket, $key)->body;
+echo "\n-------------------------------------\n";
+echo "Downloading that same object\n";
+echo "-------------------------------------\n";
+$result = $client->getObject(array('Bucket' => $name, 'Key' => $key));
 
 echo "\n---BEGIN---\n";
-print($result);
+print($result['Body']);
 echo "\n---END---\n\n";
 
+// Delete the objects in the bucket before attempting to delete the bucket
+echo "Deleting bucket and object\n";
+echo "-------------------------------------\n";
+$result = $client->listBuckets();
+foreach ($result['Buckets'] as $bucket) {
+    $iterator = $client->getIterator('ListObjects', array(
+        'Bucket' => $bucket['Name']));
 
-echo "Deleting object\n";
-$client->delete_object($bucket, $key);
-
-
-$result = $client->deleteBucket($bucket,1);
+    foreach ($iterator as $object) {
+        echo "Deleting object key =  " . "{$object['Key']}\n";
+	$client->deleteObject(array('Bucket' => $bucket['Name'], 'Key' => $object['Key']));
+    }
+    echo "Deleting bucket name = " . "{$bucket['Name']}\n";
+    $client->deleteBucket(array('Bucket' => $bucket['Name']));
+}
+echo "-------------------------------------\n";

@@ -1,130 +1,51 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-<title>Readme: AWS SDK for Java - Amazon S3 Sample</title>
-<!--
-These style should be copied directly from the common CSS.
-We include them in the document to make distributing files
-easier.
--->
-<style type="text/css">
-/* --------------------------------------------- */
-/*  AWS Developer Content Styles                 */
-/* --------------------------------------------- */
-
-body, div, p, td, th {
-    font-family : helvetica,sans-serif, arial;
-    font-size : 12px;
-    color : #000000;
-}
-
-.aws-h1, h1{
-    font-family: verdana, arial, helvetica, sans-serif;
-    font-size: 18px;
-    font-weight: bold;
-    color: #000000;
-}
-.aws-h2, h2{
-    font-family: verdana, arial, helvetica, sans-serif;
-    font-size: 14px;
-    color: #c60;
-}
-.aws-h3, h3{
-    font-family: verdana, arial, helvetica, sans-serif;
-    font-size: 12px;
-    font-weight: bold;
-    color: #333333;
-}
-
-/*table ID selector styles*/
-#aws-table {
-  border-top: 1px solid #cccccc;
-  border-left: 1px solid #cccccc;
-  width:95%;
-}
-
-#aws-table td{
-  font-size: 12px;
-  padding: 5px 5px 5px 5px;
-  border-bottom: 1px solid #cccccc;
-  border-right: 1px solid #cccccc;
-  vertical-align:top;
-}
-
-#aws-table th {
-  font-size: 12px;
-  padding: 5px 5px 5px 5px;
-  border-bottom: 1px solid #cccccc;
-  border-right: 1px solid #cccccc;
-  vertical-align:top;
-  background-color: #eeeeee;
-  color: #333333;
-  font-size: 12px;
-  font-weight: bold;
-  text-align: left;
-}
-
-/*code, note, and example styles*/
-.aws-code .programlisting{
-    font-family: "Courier New", Courier, mono;
-    font-size: 12px;
-    margin-top: 5px;
-    margin-bottom: 5px;
-    color: #000066;
-    padding: 5px;
-    background-color: #eff7ff;
-    border: 1px dashed #333;
-    width:99%;
-}
-.aws-code-inline {
-    font-family: "Courier New", Courier, mono;
-    font-size: 11px;
-}
-.aws-note {
-    border-top-width: 1px;
-    border-right-width: 1px;
-    border-bottom-width: 1px;
-    border-left-width: 1px;
-    border-top-style: solid;
-    border-right-style: none;
-    border-bottom-style: solid;
-    border-left-style: none;
-    border-top-color: #CCCCCC;
-    border-right-color: #CCCCCC;
-    border-bottom-color: #CCCCCC;
-    border-left-color: #CCCCCC;
-    padding: 10px;
-    width:95%;
-    margin-left: 20px;
-    margin-right: 20px;
-}
-</style>
-</head>
-<body>
-<h1>Amazon S3 Sample</h1>
-This is a sample that demonstrates how to make basic requests to Amazon S3 using the AWS SDK for Java.
-<h2>Prerequisites</h2>
+<h1>AWS SDK for Java <a href="https://travis-ci.org/aws/aws-sdk-java"><img src="https://travis-ci.org/aws/aws-sdk-java.png?branch=master" alt="Build Status" /></a></h1><p>The <strong>AWS SDK for Java</strong> enables Java developers to easily work with <a href="http://aws.amazon.com/">Amazon Web Services</a> and build scalable solutions with Amazon S3, Amazon DynamoDB, Amazon Glacier, and more. You can get started in minutes using <strong><em>Maven</em></strong> or by downloading a <a href="http://sdk-for-java.amazonwebservices.com/latest/aws-java-sdk.zip">single zip file</a>.</p>
 <ul>
-  <li>You must have a valid Amazon Web Services developer account.</li>
-  <li>Requires the AWS SDK for Java. For more information on the AWS SDK for Java, see <a href="http://aws.amazon.com/sdkforjava">http://aws.amazon.com/sdkforjava</a>.</li>
-  <li>You must be signed up to use Amazon S3. For more information on Amazon S3, see <a href="http://aws.amazon.com/s3">http://aws.amazon.com/s3</a>. </li>
+  <li><a href="http://aws.amazon.com/sdkforjava">SDK Homepage</a></li>
+  <li><a href="http://docs.aws.amazon.com/AWSJavaSDK/latest/javadoc/index.html">API Docs</a></li>
+  <li><a href="http://docs.aws.amazon.com/java-sdk/latest/developer-guide/welcome.html">Developer Guide</a> (<a href="https://github.com/awsdocs/aws-java-developer-guide">source</a>)</li>
+  <li><a href="http://developer.amazonwebservices.com/connect/forum.jspa?forumID=70">Forum</a></li>
+  <li><a href="https://github.com/aws/aws-sdk-java/issues">Issues</a></li>
+  <li><a href="https://java.awsblog.com">SDK Blog</a></li>
+</ul><h2>Getting Started</h2><h4>Sign up for AWS</h4><p>Before you begin, you need an AWS account. Please see the <a href="http://docs.aws.amazon.com/java-sdk/latest/developer-guide/signup-create-iam-user.html">Sign Up for AWS</a> section of the developer guide for information about how to create an AWS account and retrieve your AWS credentials.</p><h4>Minimum requirements</h4><p>To run the SDK you will need <strong>Java 1.6+</strong>. For more information about the requirements and optimum settings for the SDK, please see the <a href="http://docs.aws.amazon.com/java-sdk/latest/developer-guide/setup-install.html#installing-a-java-development-environment">Installing a Java Development Environment</a> section of the developer guide.</p><h4>Install the SDK</h4><p>The recommended way to use the AWS SDK for Java in your project is to consume it from Maven. Import the <a href="https://github.com/aws/aws-sdk-java/tree/master/aws-java-sdk-bom">aws-java-sdk-bom</a> and specify the SDK Maven modules that your project needs in the dependencies.</p><h5>Importing the BOM</h5><p><code>xml
+&lt;dependencyManagement&gt;
+  &lt;dependencies&gt;
+    &lt;dependency&gt;
+      &lt;groupId&gt;com.amazonaws&lt;/groupId&gt;
+      &lt;artifactId&gt;aws-java-sdk-bom&lt;/artifactId&gt;
+      &lt;version&gt;1.11.24&lt;/version&gt;
+      &lt;type&gt;pom&lt;/type&gt;
+      &lt;scope&gt;import&lt;/scope&gt;
+    &lt;/dependency&gt;
+  &lt;/dependencies&gt;
+&lt;/dependencyManagement&gt;
+</code></p><h5>Using the SDK Maven modules</h5><p><code>xml
+&lt;dependencies&gt;
+  &lt;dependency&gt;
+    &lt;groupId&gt;com.amazonaws&lt;/groupId&gt;
+    &lt;artifactId&gt;aws-java-sdk-ec2&lt;/artifactId&gt;
+  &lt;/dependency&gt;
+  &lt;dependency&gt;
+    &lt;groupId&gt;com.amazonaws&lt;/groupId&gt;
+    &lt;artifactId&gt;aws-java-sdk-s3&lt;/artifactId&gt;
+  &lt;/dependency&gt;
+  &lt;dependency&gt;
+    &lt;groupId&gt;com.amazonaws&lt;/groupId&gt;
+    &lt;artifactId&gt;aws-java-sdk-dynamodb&lt;/artifactId&gt;
+  &lt;/dependency&gt;
+&lt;/dependencies&gt;
+</code></p><p>See the <a href="http://docs.aws.amazon.com/java-sdk/latest/developer-guide/setup-install.html">Set up the AWS SDK for Java</a> section of the developer guide for more information about installing the SDK through other means.</p><h2>Features</h2>
+<ul>
+  <li><p>Provides easy-to-use HTTP clients for all supported AWS services, regions, and authentication protocols.</p></li>
+  <li><p>Client-Side Data Encryption for Amazon S3 - Helps improve the security of storing application data in Amazon S3.</p></li>
+  <li><p>Amazon DynamoDB Object Mapper - Uses Plain Old Java Object (POJOs) to store and retrieve Amazon DynamoDB data.</p></li>
+  <li><p>Amazon S3 Transfer Manager - With a simple API, achieve enhanced the throughput, performance, and reliability by using multi-threaded Amazon S3 multipart calls.</p></li>
+  <li><p>Amazon SQS Client-Side Buffering - Collect and send SQS requests in asynchronous batches, improving application and network performance.</p></li>
+  <li><p>Automatically uses <a href="http://docs.aws.amazon.com/java-sdk/latest/developer-guide/java-dg-roles.html">IAM Instance Profile Credentials</a> on configured Amazon EC2 instances.</p></li>
+  <li><p>And more!</p></li>
+</ul><h2>Building From Source</h2><p>Once you check out the code from GitHub, you can build it using Maven. To disable the GPG-signing in the build, use:</p><p><code>sh
+mvn clean install -Dgpg.skip=true
+</code></p><h2>Supported Versions</h2>
+<ul>
+  <li><p><strong>1.11.x</strong> - Recommended.</p></li>
+  <li><p><strong>1.10.x</strong> - Approved. Only major critical bugs will be fixed. To get the new features, upgrade to 1.11.x version of the SDK.</p></li>
 </ul>
-<h2>Running the Sample</h2>
-<p>The basic steps for running the Amazon S3 sample are:</p>
-<ol>
-  <li>Open the AwsCredentials.properties       in the sample folder.</li>
-     <li>Locate the following       section and fill in your Access Key ID and Secret Access Key:<br />
-         <br />
-         <code># Fill in your AWS Access Key ID and Secret Access Key<br />
-       # <a href="http://aws.amazon.com/security-credentials">http://aws.amazon.com/security-credentials</a><br />
-       accessKey =<br />
-       secretKey =</code><br />
-     </li>
-     <li>Save the file.</li>
-  <li>Run the <code>S3Sample.java</code> file, located in the same directory as the properties file. The sample prints information to the standard       output.</li>
-</ol>
-<p class="aws-note"><strong>NOTE:</strong> The sample also includes an  Ant build.xml file to run the sample.</p>
-<p>See the <a href="http://docs.amazonwebservices.com/AmazonS3/latest/gsg/">Amazon S3 Getting Started Guide </a>for step-by-step instructions on running this sample.</p>
-</body>
-</html>
