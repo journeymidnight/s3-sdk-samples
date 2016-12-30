@@ -37,7 +37,8 @@ import com.amazonaws.services.s3.model.ObjectListing;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.amazonaws.services.s3.model.S3Object;
 import com.amazonaws.services.s3.model.S3ObjectSummary;
-
+import com.amazonaws.auth.BasicAWSCredentials;
+import com.amazonaws.services.s3.S3ClientOptions;
 import com.amazonaws.Protocol;
 
 /**
@@ -61,27 +62,16 @@ public class S3Sample {
 
     public static void main(String[] args) throws IOException {
 
-        /*
-         * The ProfileCredentialsProvider will return your [default]
-         * credential profile by reading from the credentials file located at
-         * (~/.aws/credentials).
-         */
-        AWSCredentials credentials = null;
-        try {
-            credentials = new ProfileCredentialsProvider().getCredentials();
-        } catch (Exception e) {
-            throw new AmazonClientException(
-                    "Cannot load the credentials from the credential profiles file. " +
-                    "Please make sure that your credentials file is at the correct " +
-                    "location (~/.aws/credentials), and is in valid format.",
-                    e);
-        }
+	    BasicAWSCredentials basicAwsCred = new BasicAWSCredentials("ak", "sk");
 
-	AmazonS3 s3 = new AmazonS3Client(credentials);
-        Region usWest2 = Region.getRegion(Regions.US_WEST_2);
-	s3.setRegion(usWest2);
-
-	s3.setEndpoint("los-cn-north-1.lecloudapis.com");
+	    AmazonS3 s3 = new AmazonS3Client(basicAwsCred);
+	    s3.setEndpoint("http://los-cn-north-1.lecloudapis.com");
+		
+		/* //disable chunked upload
+		 * S3ClientOptions clientOptions = S3ClientOptions.builder().build();
+		 * clientOptions.disableChunkedEncoding();
+		 * s3.setS3ClientOptions(clientOptions);
+		*/
 	
         String bucketName = "my-first-s3-bucket-" + UUID.randomUUID();
         String key = "MyObjectKey";
