@@ -67,11 +67,11 @@ public class S3Sample {
 	    AmazonS3 s3 = new AmazonS3Client(basicAwsCred);
 	    s3.setEndpoint("http://los-cn-north-1.lecloudapis.com");
 		
-		/* //disable chunked upload
-		 * S3ClientOptions clientOptions = S3ClientOptions.builder().build();
-		 * clientOptions.disableChunkedEncoding();
-		 * s3.setS3ClientOptions(clientOptions);
-		*/
+	//disable chunked upload
+	S3ClientOptions clientOptions = S3ClientOptions.builder().build();
+	clientOptions.disableChunkedEncoding();
+	s3.setS3ClientOptions(clientOptions);
+		
 	
         String bucketName = "my-first-s3-bucket-" + UUID.randomUUID();
         String key = "MyObjectKey";
