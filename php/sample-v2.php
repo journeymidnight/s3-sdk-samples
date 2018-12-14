@@ -1,5 +1,8 @@
 <?php
+/* since php sdk 3.5*/
 namespace Aws\S3;
+
+date_default_timezone_set('America/Los_Angeles');
 use Aws\S3\S3Client;
 /*
  * Copyright 2013. Amazon Web Services, Inc. All Rights Reserved.
@@ -19,8 +22,10 @@ use Aws\S3\S3Client;
 
 // Include the SDK using the Composer autoloader
 require 'vendor/autoload.php';
+
+
 $client = S3Client::factory([
-        'credentials' => [
+	'credentials' => [
 		'key' => 'hehehehe',
 		'secret' => 'hehehehe',
 	],
